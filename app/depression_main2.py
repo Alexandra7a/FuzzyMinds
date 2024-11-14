@@ -1,9 +1,8 @@
 import pandas as pd
-from nltk import recall
 from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.svm import SVC
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import accuracy_score, precision_score, f1_score, recall_score
+from sklearn.metrics import accuracy_score, precision_score, recall_score
 from gensim.models import Word2Vec
 import numpy as np
 import re
@@ -32,7 +31,7 @@ def average_word_vectors(words, model, vocabulary, num_features):
 
 def main():
     # Load data
-    data = pd.read_csv("C:/Users/Alexandra/Documents/GitHub/projects-fuzzyminds/app/new_data/anxiety_data.csv")
+    data = pd.read_csv("C:/Users/Alexandra/Documents/GitHub/projects-fuzzyminds/app/new_data/depression_data.csv")
     data=data.iloc[:500] # small data
 
     data['Processed_Text'] = data['Text'].apply(preprocess_text)
@@ -43,7 +42,7 @@ def main():
 
     # Generate feature vectors for each text
     X = np.array([average_word_vectors(words, word2vec_model.wv, vocabulary, 200) for words in data['Processed_Text']])
-    y = data['Target'].apply(lambda x: 1 if x == "anxiety" else 0)
+    y = data['Target'].apply(lambda x: 1 if x == "depression" else 0)
 
     # Standardize features
     scaler = StandardScaler()
@@ -52,7 +51,7 @@ def main():
     # Split data
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
 
-    #  for efficiency
+    # GridSearch with limited param_grid for efficiency
     param_grid = {
         'C': [0.1, 1, 10],
         'gamma': [0.1, 0.01],
@@ -62,12 +61,12 @@ def main():
     grid = GridSearchCV(SVC(), param_grid, refit=True, cv=3, n_jobs=-1, verbose=2)
     grid.fit(X_train, y_train)
 
-    # Evaluat
+    # Evaluate the best model
     best_svm = grid.best_estimator_
     y_pred = best_svm.predict(X_val)
     accuracy = accuracy_score(y_val, y_pred)
-    precision=precision_score(y_val, y_pred);
-    recall=recall_score(y_val, y_pred);
+    precision = precision_score(y_val, y_pred);
+    recall = recall_score(y_val, y_pred);
 
     print("Validation Accuracy:", accuracy)
     print("Validation Precisiion:", precision)
