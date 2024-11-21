@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the depression dataset
-depression_data_file = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/depression_data.csv'
+depression_data_file = "../new_data/depression_data.csv"
 depression_data = pd.read_csv(depression_data_file)
 
 # Data Overview

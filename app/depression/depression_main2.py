@@ -31,7 +31,7 @@ def average_word_vectors(words, model, vocabulary, num_features):
 
 def main():
     # Load data
-    data = pd.read_csv("C:/Users/Alexandra/Documents/GitHub/projects-fuzzyminds/app/new_data/depression_data.csv")
+    data = pd.read_csv("../new_data/depression_data.csv")
     data=data.iloc[:500] # small data
 
     data['Processed_Text'] = data['Text'].apply(preprocess_text)

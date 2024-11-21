@@ -16,7 +16,7 @@ def get_depression_severity(phq_score):
 
 
 def main():
-    depression_file_path = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/depression_data.csv'
+    depression_file_path = "../new_data/depression_data.csv"
     depressionData = pd.read_csv(depression_file_path)
 
     depressionData.fillna('Null', inplace=True)
