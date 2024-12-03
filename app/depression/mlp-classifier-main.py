@@ -53,7 +53,7 @@ def make_model():
     joblib.dump(classifier, '../persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
 
     # Save the SentenceTransformer model (optional, as it is pretrained and can be reloaded)
-    model.save('../persistency/transformers/sentence_transformer_model')
+    #model.save('../persistency/transformers/sentence_transformer_model')
 
 
 def testing(classifier_t, transformer_model):
@@ -66,7 +66,9 @@ def testing(classifier_t, transformer_model):
         "I sometimes feel like giving up...",
         "So many happy people all around me, hate it",
         "Wanna smoke outside?",
-        "Do you also have mood swings?"
+        "Do you also have mood swings?",
+        "I have a hard time when I think about the tomorrow test"
+
     ]
 
     # Convert the test sentences into embeddings
