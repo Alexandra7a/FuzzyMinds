@@ -169,7 +169,7 @@ Multi-layer Perceptron Classifier
 # 5. Bibliography
 [1] Reddit Mental Health Dataset. Neel Ghoshal (2020).
 Available at: https://www.kaggle.com/datasets/neelghoshal/
-reddit-mental-health-data.
+reddit-mental-health-data.<br/>
 [2] Emotion Dataset. Parul Pandey (2020).
 Available at: https://www.kaggle.com/datasets/parulpandey/emotion-dataset/data?
 select=training.csv.
