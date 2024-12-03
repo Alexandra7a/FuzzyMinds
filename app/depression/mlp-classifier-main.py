@@ -50,7 +50,7 @@ def make_model():
     make_confusion_matrix(y_test, y_pred)
 
     # Save the trained classifier
-    joblib.dump(classifier, '../persistency/classifiers/all-MiniLM-L6-v2_classifier.joblib')
+    joblib.dump(classifier, '../persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
 
     # Save the SentenceTransformer model (optional, as it is pretrained and can be reloaded)
     model.save('../persistency/transformers/sentence_transformer_model')
@@ -86,8 +86,9 @@ def testing(classifier_t, transformer_model):
 
 def main():
     #make_model()
-    classifier_t = joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_classifier.joblib')
-    model = SentenceTransformer.load('../persistency/transformers/sentence_transformer_model')
+    classifier_t = joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
+    #model = SentenceTransformer.load('../persistency/transformers/sentence_transformer_model')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
     testing(classifier_t, model)
 
 
