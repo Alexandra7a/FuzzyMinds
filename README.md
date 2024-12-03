@@ -93,8 +93,9 @@ The *Emotion Recognition Dataset* includes text samples labeled with six emotion
 - 2: Joy
 - 3: Love
 - 4: Sadness
-- 5: Surprise
-The labels were transformed into three broader categories to align with our focus on mental health:
+- 5: Surprise<br/>
+
+- The labels were transformed into three broader categories to align with our focus on mental health:
 - Anxiety: Includes posts labeled as Fear and Surprise.
 - Depression: Includes posts labeled as Sadness and Anger.
 - Normal: Includes posts labeled as Joy and Love.
