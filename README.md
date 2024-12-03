@@ -129,3 +129,48 @@ aim to improve the detection of mental health conditions in digital interactions
 - Performed oversampling on the Normal class to address class imbalance.
 The prepared datasets provide a strong foundation for training advanced AI models capable of
 identifying early signs of mental health challenges in adolescents.
+
+# 4. Algorithms used
+## 4.1. Multi-layer Perceptron Classifier
+
+### 4.1.1. Anxiety
+- Hyperparameters: ID, Text, Target
+- Target: Normal (246), Anxiety (254)
+- Models: Multi-layer Perceptron Classifier with transformer Sentence Transformer with the
+data set encoding ’all-MiniLM-L6-v2’
+#### Results:
+– Accuracy: 0.93 <br/>
+– Average Precision: 0.93<br/>
+– Precision for Anxiety Class: 0.95<br/>
+– Precision for Normal Class: 0.90<br/>
+– Recall for Anxiety Class: 0.90<br/>
+– Recall for Normal Class: 0.95<br/>
+– Confusion Matrix:<br/>
+![image](https://github.com/user-attachments/assets/27548358-31ff-45b3-a0dc-712edd16cd78)
+
+### 4.1.2. Depression
+Multi-layer Perceptron Classifier
+- Hyperparameters: ID, Text, Target
+- Target: Normal (249), Depression (251)
+- Models: Decision Tree with transformer Sentence Transformer with the data set encoding
+’all-MiniLM-L6-v2’
+#### Results:
+– Accuracy: 0.93<br/>
+– Average Precision: 0.93<br/>
+– Precision for Depression Class: 0.96<br/>
+– Precision for Normal Class: 0.90<br/>
+– Recall for Depression Class: 0.89<br/>
+– Recall for Normal Class: 0.97<br/>
+– Confusion Matrix:<br/>
+![image](https://github.com/user-attachments/assets/832d7914-9c37-48a6-bf6b-9ef7f250114b)
+
+
+# 5. Bibliography
+[1] Reddit Mental Health Dataset. Neel Ghoshal (2020).
+Available at: https://www.kaggle.com/datasets/neelghoshal/
+reddit-mental-health-data.
+[2] Emotion Dataset. Parul Pandey (2020).
+Available at: https://www.kaggle.com/datasets/parulpandey/emotion-dataset/data?
+select=training.csv.
+
+
