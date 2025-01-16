@@ -33,7 +33,7 @@ The primary goal is to enhance mental health support for teenagers by:
 ### Experimental Results
 - **Small Data Experiments**: Achieved moderate accuracy (e.g., SVM with Word2Vec embeddings yielded ~64% accuracy).
 - **Large Data Experiments**: Higher accuracy with advanced methods like Multi-layer Perceptron Classifiers (~93% accuracy).
-- **Final Approach**: Random Forest Classifier achieved 92% accuracy in multi-class classification of Anxiety, Depression, and Normal states (92% accuracy).
+- **Final Approach**: Random Forest Classifier achieved 92% accuracy in multi-class classification of Anxiety, Depression, and Normal states.
 
 ## Technical Details
 
