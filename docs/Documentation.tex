@@ -28,7 +28,7 @@
 \usepackage{float} % Include this in the preamble
 
 
-\geometry{a4paper,top=3cm,left=2.5cm,right=2cm,bottom=2cm}
+\geometry{a4paper,top=2cm,left=2.5cm,right=2cm,bottom=2cm}
 
 \renewcommand{\headrulewidth}{2pt}
 \renewcommand{\footrulewidth}{2pt}
@@ -316,14 +316,14 @@ These metrics collectively ensured that the solutions were robust, accurate, and
 
 \section{Description of the Datasets}
 \label{section:description}
-This study leverages two publicly available datasets sourced from Kaggle to develop and evaluate the proposed digital tools for the early detection of anxiety and depression in teenagers. These datasets include the *Reddit Mental Health Dataset* \cite{reddit_dataset} and the *Emotion Recognition Dataset* \cite{emotion_dataset}. Below, we provide a detailed description of each dataset and the preprocessing steps undertaken.
+This study leverages five publicly available datasets sourced from Kaggle to develop and evaluate the proposed digital tools for the early detection of anxiety and depression in teenagers. These datasets include the \textbf{Depression Reddit Dataset (Cleaned)} \cite{depression_reddit_cleaned}, the \textbf{Emotion Recognition Dataset} \cite{emotion_dataset}, the \textbf{Emotions Dataset} \cite{emotions}, the \textbf{Reddit Mental Health Dataset} \cite{reddit_dataset} and the \textbf{Students Anxiety and Depression Dataset} \cite{students_anxiety_depression}. 
 
 \subsection{The Datasets}
 \label{section:datasets}
 
 \subsubsection{Reddit Mental Health Dataset}
 \label{section:reddit}
-The *Reddit Mental Health Dataset* contains posts from Reddit users, labeled based on various mental health conditions. For this project, we focused on two relevant categories: \textit{Anxiety} and \textit{Depression}. The dataset originally includes the following categories:
+The \textbf{Reddit Mental Health Dataset} contains posts from Reddit users, labeled based on various mental health conditions. For this project, we focused on two relevant categories: \textit{Anxiety} and \textit{Depression}. The dataset originally includes the following categories:
 \begin{itemize}
     \item 0: Stress
     \item 1: Depression
@@ -331,11 +331,11 @@ The *Reddit Mental Health Dataset* contains posts from Reddit users, labeled bas
     \item 3: Personality Disorder
     \item 4: Anxiety
 \end{itemize}
-For our analysis, only posts labeled as \textit{Depression} and \textit{Anxiety} were retained. The \textit{title} column was removed, and the data was concatenated with the *Emotion Recognition Dataset*. To ensure data consistency, null values were removed, and the dataset was balanced to prevent bias towards the larger class.
+For our analysis, only posts labeled as \textit{Depression} and \textit{Anxiety} were retained. The \textit{title} column was removed, and the data was concatenated with the \textbf{Emotion Recognition Dataset}. To ensure data consistency, null values were removed, and the dataset was balanced to prevent bias towards the larger class.
 
 \subsubsection{Emotion Recognition Dataset}
 \label{section:emotion}
-The *Emotion Recognition Dataset* includes text samples labeled with six emotion categories:
+The \textbf{Emotion Recognition Dataset} includes text samples labeled with six emotion categories:
 \begin{itemize}
     \item 0: Anger
     \item 1: Fear
@@ -369,8 +369,8 @@ This dataset provides a robust foundation for training predictive models and eva
 \label{section:usage}
 Both datasets have been used in prior research to analyze mental health and emotional patterns through text. For instance:
 \begin{itemize}
-    \item The *Reddit Mental Health Dataset* has been utilized to study language patterns associated with mental health conditions and develop classification models for mental health prediction. Studies have achieved notable accuracy in identifying conditions like anxiety and depression using natural language processing (NLP) techniques.
-    \item The *Emotion Recognition Dataset* has been widely used for emotion classification tasks, leveraging machine learning models to distinguish between different emotional states.
+    \item The \textbf{Reddit Mental Health Dataset} has been utilized to study language patterns associated with mental health conditions and develop classification models for mental health prediction. Studies have achieved notable accuracy in identifying conditions like anxiety and depression using natural language processing (NLP) techniques.
+    \item The \textbf{Emotion Recognition Dataset} has been widely used for emotion classification tasks, leveraging machine learning models to distinguish between different emotional states.
 \end{itemize}
 
 In this project, we extend these works by combining both datasets, re-labeling their categories to focus specifically on anxiety, depression, and normal states, and balancing the data to enhance model performance. By addressing class imbalances and tailoring the datasets to the problem, we aim to improve the detection of mental health conditions in digital interactions.
@@ -588,6 +588,7 @@ We used a data set of 500 rows (small data).
 
 \vspace{0.5cm} % Add 1 cm of vertical space (adjust as needed)
 
+\newpage
 \subsubsection{Multi-layer Perceptron Classifier}
 \label{section:classifier}
 \begin{itemize}
@@ -612,10 +613,11 @@ We used a data set of 500 rows (small data).
 \caption[Confusion matrix for depression data ( Multi-layer Perceptron Classifier)]{Confusion matrix for depression data using an  Multi-layer Perceptron Classifier (large dataset). The matrix reports 1742 true positives and 196 false positives for normal cases, alongside 1656 true positives and 61 false negatives for depression cases.}
 \end{figure}
 
-\subsection{Multi-class Classification Data}
+\section{Final Approach}
+\label{final-approach}
+\subsection{Multi-class Classification Data }
 \label{section:multi-class-data}
 \subsubsection{Random Forest Classifier}
-\label{section:randomForestClassifier}
 \begin{itemize}
     \item \textbf{Hyperparameters:} ID, Text, Target
     \item \textbf{Target:} Normal (16543), Anxiety(16576), Depression (16456)
@@ -637,13 +639,11 @@ We used a data set of 500 rows (small data).
 
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{Multi-Class-Data.jpg}
-\caption[Confusion matrix for mental health classification (Random Forest Classifier)]{Confusion matrix for mental health classification using a Random Forest Classifier. The matrix indicates the model's performance with 3030 true positives and 285 misclassifications for anxiety, 3131 true positives and 160 misclassifications for depression, and 3007 true positives with 302 misclassifications for normal cases.}
+\includegraphics[width=0.8\textwidth]{Multi-Class-Data.jpg}
+\caption[Confusion matrix for mental health classification (Random Forest Classifier)]{Confusion matrix for mental health classification using a Random Forest Classifier. The matrix indicates the model's performance with 10042 true positives and 734 misclassifications for anxiety, 9577 true positives and 621 misclassifications for depression, and 9778 true positives with 337 misclassifications for normal cases.}
 \label{fig:confusion_matrix_rf}
 \end{figure}
 \clearpage
-
-
 
 
 \section{Spatial Complexity}
@@ -767,6 +767,7 @@ For a dataset with:
 
 Increasing $t$ (trees) or $d$ (depth) will significantly increase memory usage, making scalability an important factor to consider.
 
+\newpage
 \section{Temporal Complexity}
 
 \subsection{What It Means}
@@ -941,24 +942,79 @@ To make the code portable:
     \item Use environment variables or configuration files for runtime settings.
 \end{enumerate}
 
-\chapter{Conclusions and possible improvements}
-\label{chapter:conclusions-improvements}
+\chapter{Conclusions and Possible Improvements}
+\label{chapter:conclusions}
+
+\section{Conclusions}
+The study presents an innovative approach to addressing the growing prevalence of anxiety and depression among teenagers by leveraging digital platforms and advanced AI technologies. By focusing on early detection and personalized intervention, the proposed system offers a scalable and proactive solution that meets teenagers where they naturally engage — in their digital environments.
+
+The implementation of algorithms such as Support Vector Machines (SVM), Random Forest Classifiers, Decision Trees, and Transformer-based Neural Networks showcases the potential of combining traditional machine learning techniques with state-of-the-art AI tools for natural language processing. The integration of datasets such as the \textit{Reddit Mental Health Dataset} and \textit{Emotion Recognition Dataset} provided a rich source of diverse features, enabling the models to learn complex emotional patterns.
+
+Key conclusions drawn from the study include:
+
+\begin{itemize}
+    \item \textbf{Effectiveness of AI in Mental Health Classification:} Models leveraging sentence embeddings and TF-IDF vectors demonstrated strong performance in categorizing emotional states as anxiety, depression, or normal. This highlights the potential of AI to identify subtle cues in textual data indicative of mental health challenges.
+    \item \textbf{Importance of Data Balance:} Oversampling and careful data preprocessing significantly improved model accuracy and reduced biases, ensuring that each class (Anxiety, Depression, and Normal) was equally represented during training.
+    \item \textbf{Transformer Models' Superior Performance:} Neural network architectures utilizing transformers like \textit{all-MiniLM-L6-v2} provided the most robust results in capturing semantic context and subtle nuances in text. This reaffirms the utility of advanced embeddings for tasks involving unstructured data.
+\end{itemize}
+
+\section{Limitations}
+Despite the promising results, the study faced several limitations that warrant further exploration:
+
+\begin{itemize}
+    \item \textbf{Computational Complexity:} Transformer-based models, while powerful, required significant computational resources for training and inference. This limits their deployability in low-resource environments.
+    \item \textbf{Dataset Generalizability:} While the combined dataset was balanced and diverse, it may not capture cultural or linguistic variations in how mental health issues are expressed.
+    \item \textbf{Lack of Real-Time Validation:} The study relied on static datasets, and the models have not yet been tested in real-world scenarios where real-time interactions may introduce additional challenges.
+    \item \textbf{Sensitivity to Ambiguity:} Models occasionally struggled with ambiguous or mixed emotional signals, highlighting the need for more advanced techniques to handle complex, multi-faceted emotional states.
+\end{itemize}
+
+\section{Possible Improvements} 
+To further enhance the proposed system and address its limitations, the following improvements are recommended:
+
+\begin{itemize} 
+    \item \textbf{Incorporation of Multimodal Data:} Future work could integrate additional data sources, such as voice tone analysis, facial expressions, and physiological data, to provide a more comprehensive view of a teenager's mental state. 
+    \item \textbf{Continuous Learning:} Implementing mechanisms for models to learn and adapt over time using real-world feedback will ensure their relevance in evolving digital environments. 
+    \item \textbf{Diversification of Data Sources:} Expanding the dataset with examples from varied sources, such as forums, blogs, and different social media platforms, would enrich the training data and improve the model’s robustness across diverse contexts. 
+    \item \textbf{Real-Time Data Collection:} Implementing automated mechanisms for the continuous extraction of updated data from online sources would allow the system to remain relevant and up-to-date with current trends and behaviors. 
+    \item \textbf{Adaptation to Regional Specifics:} Integrating data from different languages and cultures to reflect linguistic and socio-cultural diversity would ensure that the system is effective across various global contexts and user demographics.
+
+\end{itemize}
+
+\section{Final Remarks}
+This project underscores the transformative potential of AI-driven tools in addressing teenage mental health challenges. By identifying and addressing key limitations, future iterations of the system can further refine its accuracy, accessibility, and effectiveness. Through collaborative efforts between technologists, mental health professionals, and educators, this solution can make significant strides toward reducing the stigma of mental health and providing timely support to those in need.
+
 
 \newpage
 \addcontentsline{toc}{chapter}{Bibliography} 
 \begin{thebibliography}{99}
 
-\bibitem{reddit_dataset} 
-\textit{Reddit Mental Health Dataset}.  
-Neel Ghoshal (2020).  
-\\Available at: \url{https://www.kaggle.com/datasets/neelghoshal/reddit-mental-health-data}. 
+\bibitem{depression_reddit_cleaned}  
+\textit{Depression Reddit Dataset (Cleaned)}.  
+Infamous Coder (2020).  
+\\Available at: \url{https://www.kaggle.com/datasets/infamouscoder/depression-reddit-cleaned}.  
 
 \bibitem{emotion_dataset}  
 \textit{Emotion Dataset}.  
 Parul Pandey (2020).  
 \\Available at: \url{https://www.kaggle.com/datasets/parulpandey/emotion-dataset/data?select=training.csv}.  
 
+\bibitem{emotions}  
+\textit{Emotions Dataset}.  
+Nelgiriyewithana (2020).  
+\\Available at: \url{https://www.kaggle.com/datasets/nelgiriyewithana/emotions}.  
+
+\bibitem{reddit_dataset} 
+\textit{Reddit Mental Health Dataset}.  
+Neel Ghoshal (2020).  
+\\Available at: \url{https://www.kaggle.com/datasets/neelghoshal/reddit-mental-health-data}. 
+
+\bibitem{students_anxiety_depression}  
+\textit{Students Anxiety and Depression Dataset}.  
+Saha Sourav (2020).  
+\\Available at: \url{https://www.kaggle.com/datasets/sahasourav17/students-anxiety-and-depression-dataset}.  
+
 \end{thebibliography}
+
 
 
 
