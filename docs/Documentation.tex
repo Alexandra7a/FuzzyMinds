@@ -25,6 +25,7 @@
 \usepackage{float}
 \usepackage{verbatim}
 \usepackage{xcolor}
+\usepackage{float} % Include this in the preamble
 
 
 \geometry{a4paper,top=3cm,left=2.5cm,right=2cm,bottom=2cm}
@@ -92,6 +93,7 @@ ioan.mihalcea@stud.ubbcluj.ro\\
 
 \vspace{2cm}
 
+
 \begin{center}
 2024-2025
 \end{center}
@@ -156,6 +158,161 @@ By addressing these questions, this project aims to create an innovative, eviden
 
 \chapter{Existing Problem-Solving Methods (Related Work)}
 \label{chapter:existing-problem}
+This chapter provides an in-depth exploration of the algorithms applied to the problem of mental health classification, the methodologies for learning and optimization, and the metrics employed to evaluate the quality of solutions. The focus is on understanding the mechanisms, utility, limitations, and examples of the algorithms, as well as how their outputs are measured to ensure effective decision-making.
+
+\section{Algorithms Used}
+\label{section:algorithms_used}
+
+\subsection{Support Vector Machine (SVM)}
+\label{subsection:svm}
+
+\subsubsection{How it works}
+\label{subsubsection:svm_how_it_works}
+
+Support Vector Machine (SVM) is a supervised learning algorithm designed for binary and multiclass classification tasks. Its primary objective is to find the best possible hyperplane to separate data points belonging to different classes. For linearly separable data, SVM identifies the hyperplane that maximizes the margin between classes. When data is non-linear, SVM employs kernel functions such as Radial Basis Function (RBF) or polynomial kernels to map the data into a higher-dimensional space where separation becomes feasible.
+
+\subsubsection{Why it is useful}
+\label{subsubsection:svm_why_useful}
+
+SVM is particularly effective in smaller datasets with distinct boundaries between classes, making it well-suited for the structured survey responses used in this study. It performs well in high-dimensional spaces and offers a robust mathematical foundation for classification. Additionally, its use of kernel functions allows for flexibility in handling non-linear data.
+
+\subsubsection{Limitations}
+\label{subsubsection:svm_limitations}
+
+Despite its strengths, SVM struggles with large datasets due to computational intensity, as its training time scales quadratically with the dataset size. Additionally, it is sensitive to outliers, which can significantly influence the decision boundary. Selecting the correct kernel and hyperparameters requires extensive experimentation, which can be time-consuming.
+
+\subsubsection{Examples}
+\label{subsubsection:svm_examples}
+
+In the context of mental health classification, SVM was used to analyze text features extracted from survey data. For example, responses like \textit{``I feel constantly worried''} may be classified as \textit{Anxiety}, while \textit{``I feel hopeless''} may be categorized as \textit{Depression}, using patterns in word frequency and semantics.
+
+\subsection{Linear Regression}
+\label{subsection:linear_regression}
+
+\subsubsection{How it works}
+\label{subsubsection:linear_regression_how_it_works}
+
+Linear regression is a simple, interpretable model that assumes a linear relationship between input features and the target variable. In this study, it is used for multiclass classification by representing each sentence as a numerical vector of features (e.g., word frequencies or sentiment scores). The algorithm calculates weights for these features to predict the probability of a sentence belonging to a specific class.
+
+\subsubsection{Why it is useful}
+\label{subsubsection:linear_regression_why_useful}
+
+Linear regression offers simplicity and interpretability, making it a suitable baseline algorithm for understanding the data and relationships between features. It is computationally inexpensive, allowing for rapid prototyping and testing.
+
+\subsubsection{Limitations}
+\label{subsubsection:linear_regression_limitations}
+
+Its reliance on linear assumptions limits its applicability to more complex datasets, where interactions between features or non-linear patterns are critical. Linear regression may also fail to perform well in cases of high feature dimensionality or multicollinearity.
+
+\subsubsection{Examples}
+\label{subsubsection:linear_regression_examples}
+
+For example, the model may classify sentences like \textit{``I am happy''} or \textit{``I cannot focus''} based on sentiment scores calculated from word frequencies. If the sentiment score is positive, the model might classify the sentence as \textit{Normal}, while negative scores may correspond to \textit{Depression} or \textit{Anxiety}.
+
+\subsection{Decision Tree}
+\label{subsection:decision_tree}
+
+\subsubsection{How it works}
+\label{subsubsection:decision_tree_how_it_works}
+
+Decision trees are a supervised learning algorithm used for classification and regression tasks. They function by splitting the dataset into subsets based on feature values, creating a tree-like structure of decisions. In this study, decision trees work alongside sentence embeddings generated by the \textit{all-MiniLM-L6-v2} transformer model. These embeddings provide a rich, semantic representation of the input data, which the decision tree uses to make splits at each node.
+
+\subsubsection{Why it is useful}
+\label{subsubsection:decision_tree_why_useful}
+
+Decision trees are easy to interpret and can handle both numerical and categorical data. When paired with transformer-generated embeddings, they can effectively model complex relationships within the data. Their non-parametric nature allows them to capture non-linear patterns, making them versatile for text-based classification tasks.
+
+\subsubsection{Limitations}
+\label{subsubsection:decision_tree_limitations}
+
+Decision trees are prone to overfitting, especially when the tree depth is not constrained. They can also be sensitive to noise in the data, which might lead to less robust predictions. Additionally, they may struggle with high-dimensional data unless used with dimensionality reduction techniques or well-structured embeddings like those from transformers.
+
+\subsubsection{Examples}
+\label{subsubsection:decision_tree_examples}
+
+For instance, responses encoded using \textit{all-MiniLM-L6-v2}, such as \textit{``I feel constantly tired and unmotivated,''} are processed by the decision tree to predict classes like \textit{Depression} or \textit{Fatigue}. The embeddings enable the decision tree to consider the semantic context of the response.
+
+\subsection{Neural Networks with Transformers (Sentence Transformers)}
+\label{subsection:transformers}
+
+\subsubsection{How it works}
+\label{subsubsection:transformers_how_it_works}
+
+Transformer models such as \textit{all-MiniLM-L6-v2} are based on the attention mechanism, enabling them to focus on important aspects of input data while processing sequences of text. These models use a neural network architecture that converts input sentences into numerical embeddings. These embeddings capture the semantic meaning of each sentence and its context within the overall dataset. By leveraging the power of pre-trained embeddings, the algorithm can quickly generalize to new tasks with minimal fine-tuning.
+
+\subsubsection{Why it is useful}
+\label{subsubsection:transformers_why_useful}
+
+Transformers are particularly well-suited for analyzing natural language data because they excel at capturing the subtleties of sentence meaning and relationships. Their ability to handle unstructured data makes them indispensable for tasks involving text classification or understanding complex linguistic patterns. They also allow for transfer learning, which reduces the computational cost of training from scratch.
+
+\subsubsection{Limitations}
+\label{subsubsection:transformers_limitations}
+
+The primary limitation of transformers lies in their computational requirements, both in terms of memory and processing power. This makes them slower to train and deploy compared to traditional algorithms. Additionally, they can overfit on smaller datasets, necessitating careful fine-tuning or the use of regularization techniques.
+
+\subsubsection{Examples}
+\label{subsubsection:transformers_examples}
+
+For instance, a response like \textit{``I feel overwhelmed by my responsibilities''} is encoded into a high-dimensional vector representing its semantic meaning. The transformer model identifies the closest match based on training data, categorizing this response as \textit{Anxiety}.
+
+\subsection{Random Forest Classifier}
+\label{subsection:random_forest}
+
+\subsubsection{How it works}
+\label{subsubsection:random_forest_how_it_works}
+
+Random Forest is an ensemble learning algorithm that builds multiple decision trees during training and merges their outputs to improve classification accuracy. In this study, the algorithm works with text data represented as TF-IDF vectors. TF-IDF (Term Frequency-Inverse Document Frequency) captures the importance of words in the dataset by quantifying their frequency and uniqueness. The random forest aggregates the predictions from individual trees to classify text responses.
+
+\subsubsection{Why it is useful}
+\label{subsubsection:random_forest_why_useful}
+
+Random Forest is robust to overfitting and performs well on a wide range of classification problems. Its ability to handle high-dimensional data makes it suitable for text classification tasks. Additionally, by using TF-IDF features, the algorithm can focus on the most informative terms in the text data.
+
+\subsubsection{Limitations}
+\label{subsubsection:random_forest_limitations}
+
+The algorithm requires more computational resources compared to single decision trees. It can also become less interpretable as the number of trees increases. Additionally, the performance of Random Forest depends on the quality of the features; poorly chosen features may lead to suboptimal results.
+
+\subsubsection{Examples}
+\label{subsubsection:random_forest_examples}
+
+For example, TF-IDF vectors representing responses like \textit{``I am unable to concentrate and feel restless''} are fed into the Random Forest classifier. By analyzing the importance of terms like \textit{``concentrate''} and \textit{``restless,''} the algorithm predicts classes such as \textit{Anxiety} or \textit{ADHD}.
+
+\section{Learning/Optimization Process}
+\label{section:learning_optimization}
+
+The learning process involves the training and fine-tuning of the algorithms discussed above to maximize their performance on the classification task. Training data was divided into labeled classes, allowing supervised learning techniques to map input features to output classes. The optimization process involved selecting appropriate hyperparameters, such as:
+\begin{itemize}
+    \item The choice of kernel for SVM (e.g., RBF kernel for non-linear data).
+    \item Fine-tuning pre-trained transformer models for sentence classification.
+    \item Adjusting regularization parameters for linear regression to avoid overfitting.
+    \item Limiting the depth of decision trees to prevent overfitting.
+    \item Optimizing the number of trees in the Random Forest to balance accuracy and computational cost.
+\end{itemize}
+
+The performance of each model was validated using techniques like cross-validation to ensure generalization to unseen data.
+
+\section{Metrics for Assessing Solution Quality}
+\label{section:metrics_quality}
+
+The quality of each algorithm's predictions was assessed using the following metrics:
+\begin{itemize}
+    \item \textbf{Accuracy} -- The proportion of correct predictions made by the model across all classes.
+    \item \textbf{Precision, Recall, and F1-Score} -- These metrics provide a detailed view of performance for imbalanced datasets:
+    \begin{itemize}
+        \item \textbf{Precision} measures the accuracy of positive predictions.
+        \item \textbf{Recall} evaluates the algorithm's ability to capture all relevant instances.
+    \end{itemize}
+    \item \textbf{Confusion Matrix} -- A visualization of true vs. predicted labels for each class, highlighting errors and their distribution.
+    
+\end{itemize}
+
+These metrics collectively ensured that the solutions were robust, accurate, and suitable for real-world application.
+
+
+
+\chapter{Experimental results obtained}
+\label{chapter:experimental-results}
 
 \section{Description of the Datasets}
 \label{section:description}
@@ -255,7 +412,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.9\textwidth]{Anxiety-Data-SmallData.jpg}
-\caption[Confusion matrix for anxiety data (small dataset)]{\centering Confusion matrix for anxiety data (small dataset). This matrix shows the classification performance: 29 true positives and 17 false positives for normal cases, and 35 true positives and 19 false negatives for anxiety cases.}
+\caption[Confusion matrix for anxiety data (small dataset)]{Confusion matrix for anxiety data (small dataset). This matrix shows the classification performance: 29 true positives and 17 false positives for normal cases, and 35 true positives and 19 false negatives for anxiety cases.}
 \end{figure}
 
 
@@ -282,7 +439,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Depression-Data-SmallData.jpg}
-\caption[Confusion matrix for depression data (small dataset)]{\centering Confusion matrix for depression data (small dataset). This matrix illustrates the results with 28 true positives and 17 false positives for normal cases, and 34 true positives and 21 false negatives for depression cases.}
+\caption[Confusion matrix for depression data (small dataset)]{Confusion matrix for depression data (small dataset). This matrix illustrates the results with 28 true positives and 17 false positives for normal cases, and 34 true positives and 21 false negatives for depression cases.}
 \end{figure}
 
 \vspace{1cm} % Add 1 cm of vertical space (adjust as needed)
@@ -315,7 +472,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Anxiety-Data-LinearRegression.jpg}
-\caption[Confusion matrix for anxiety data (linear regression)]{\centering Confusion matrix for anxiety data using Linear Regression (large dataset). It details 1398 true positives and 310 false positives for normal cases, along with 1359 true positives and 295 false negatives for anxiety cases.}
+\caption[Confusion matrix for anxiety data (linear regression)]{Confusion matrix for anxiety data using Linear Regression (large dataset). It details 1398 true positives and 310 false positives for normal cases, along with 1359 true positives and 295 false negatives for anxiety cases.}
 \end{figure}
 
 \vspace{1cm} % Add 1 cm of vertical space (adjust as needed)
@@ -342,7 +499,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Anxiety-Data-DecisionTree.jpg}
-\caption[Confusion matrix for anxiety data (decision tree)]{\centering Confusion matrix for anxiety data using a Decision Tree (large dataset). The matrix indicates 1525 true positives and 416 false positives for normal cases, with 1253 true positives and 168 false negatives for anxiety cases.}
+\caption[Confusion matrix for anxiety data (decision tree)]{Confusion matrix for anxiety data using a Decision Tree (large dataset). The matrix indicates 1525 true positives and 416 false positives for normal cases, with 1253 true positives and 168 false negatives for anxiety cases.}
 \end{figure}
 
 \vspace{0.5cm} % Add 1 cm of vertical space (adjust as needed)
@@ -369,7 +526,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Anxiety-Data-MLPClassifier.jpg}
-\caption[Confusion matrix for anxiety data (Multi-layer Perceptron Classifier)]{\centering Confusion matrix for anxiety data using an Multi-layer Perceptron Classifier (large dataset). It shows 1612 true positives and 171 false positives for normal cases, and 1498 true positives with 81 false negatives for anxiety cases.}
+\caption[Confusion matrix for anxiety data (Multi-layer Perceptron Classifier)]{Confusion matrix for anxiety data using an Multi-layer Perceptron Classifier (large dataset). It shows 1612 true positives and 171 false positives for normal cases, and 1498 true positives with 81 false negatives for anxiety cases.}
 \end{figure}
 
 \vspace{0.5cm} % Add 1 cm of vertical space (adjust as needed)
@@ -399,7 +556,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Depression-Data-LinearRegression.jpg}
-\caption[Confusion matrix for depression data (linear regression)]{\centering Confusion matrix for depression data using Linear Regression (large dataset). The results include 1465 true positives and 375 false positives for normal cases, as well as 1477 true positives and 338 false negatives for depression cases.}
+\caption[Confusion matrix for depression data (linear regression)]{Confusion matrix for depression data using Linear Regression (large dataset). The results include 1465 true positives and 375 false positives for normal cases, as well as 1477 true positives and 338 false negatives for depression cases.}
 \end{figure}
 
 \vspace{0.5cm} % Add 1 cm of vertical space (adjust as needed)
@@ -426,7 +583,7 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Depression-Data-DecisionTree.jpg}
-\caption[Confusion matrix for depression data (decision tree)]{\centering Confusion matrix for depression data using a Decision Tree (large dataset). It highlights 1638 true positives and 456 false positives for normal cases, with 1396 true positives and 165 false negatives for depression cases.}
+\caption[Confusion matrix for depression data (decision tree)]{Confusion matrix for depression data using a Decision Tree (large dataset). It highlights 1638 true positives and 456 false positives for normal cases, with 1396 true positives and 165 false negatives for depression cases.}
 \end{figure}
 
 \vspace{0.5cm} % Add 1 cm of vertical space (adjust as needed)
@@ -452,25 +609,356 @@ We used a data set of 500 rows (small data).
 \begin{figure}[h]
 \centering
 \includegraphics[width=0.9\textwidth]{Depression-Data-MLPClassifier.jpg}
-\caption[Confusion matrix for depression data ( Multi-layer Perceptron Classifier)]{\centering Confusion matrix for depression data using an  Multi-layer Perceptron Classifier (large dataset). The matrix reports 1742 true positives and 196 false positives for normal cases, alongside 1656 true positives and 61 false negatives for depression cases.}
+\caption[Confusion matrix for depression data ( Multi-layer Perceptron Classifier)]{Confusion matrix for depression data using an  Multi-layer Perceptron Classifier (large dataset). The matrix reports 1742 true positives and 196 false positives for normal cases, alongside 1656 true positives and 61 false negatives for depression cases.}
 \end{figure}
 
+\subsection{Multi-class Classification Data}
+\label{section:multi-class-data}
+\subsubsection{Random Forest Classifier}
+\label{section:randomForestClassifier}
+\begin{itemize}
+    \item \textbf{Hyperparameters:} ID, Text, Target
+    \item \textbf{Target:} Normal (16543), Anxiety(16576), Depression (16456)
+    \item \textbf{Models:} Random Forest Classifier with the data set encoding TF-IDF Vectorizer
+    \item \textbf{Results:}
+    \begin{itemize}
+        \item \textbf{Accuracy:} 0.92 
+        \item \textbf{Cross-Validation Accuracy:} 0.9202
+        \item \textbf{Average Precision:} 0.92
+        \item \textbf{Precision for Anxiety Class:} 0.95
+        \item \textbf{Precision for Depression Class:} 0.88
+        \item \textbf{Precision for Normal Class:} 0.95
+        \item \textbf{Recall for Anxiety Class:} 0.91
+        \item \textbf{Recall for Depression Class:} 0.91
+        \item \textbf{Recall for Normal Class:} 0.93
+        \item \textbf{Confusion Matrix:}
+    \end{itemize}
+\end{itemize}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.9\textwidth]{Multi-Class-Data.jpg}
+\caption[Confusion matrix for mental health classification (Random Forest Classifier)]{Confusion matrix for mental health classification using a Random Forest Classifier. The matrix indicates the model's performance with 3030 true positives and 285 misclassifications for anxiety, 3131 true positives and 160 misclassifications for depression, and 3007 true positives with 302 misclassifications for normal cases.}
+\label{fig:confusion_matrix_rf}
+\end{figure}
+\clearpage
+
+
+
+
+\section{Spatial Complexity}
+\label{section:spatial-complexity}
+
+\subsection{What It Means}
+\label{section:what-it-means}
+Spatial complexity refers to the memory required during the execution of the code. It depends on the size of data structures stored in memory, including intermediate and final outputs.
+
+\subsection{Code Analysis}
+\label{section:code}
+
+\subsubsection{TF-IDF Vectorizer}
+\label{section:tf-idf}
+\begin{itemize}
+  \item \textbf{Details:} Converts text into a sparse matrix of size $n \times m$, where:
+  \begin{itemize}
+    \item $n$: Number of documents in the dataset.
+    \item $m$: Maximum features defined (\texttt{max\_features=5000} in your case).
+  \end{itemize}
+  \item \textbf{Spatial Complexity:}
+  \[
+  O(n \cdot m)
+  \]
+  The memory usage grows linearly with the number of documents and features. For sparse data (most elements being zero), storage efficiency improves.
+\end{itemize}
+
+\subsubsection{Random Forest Classifier}
+\label{section:random-classifier}
+\begin{itemize}
+  \item \textbf{Details:} The Random Forest classifier uses $t$ trees, each with nodes storing:
+  \begin{itemize}
+    \item Splitting features,
+    \item Threshold values,
+    \item Branches for splits until maximum tree depth ($d$).
+  \end{itemize}
+  \item \textbf{Spatial Complexity:}
+  \[
+  O(t \cdot d \cdot f)
+  \]
+  Here, $t$ is the number of trees, $d$ is the depth of each tree, and $f$ is the features used per split. As $t$ or $d$ increases, memory usage scales proportionally.
+\end{itemize}
+
+\subsubsection{Dataset Storage}
+\label{section:data-storage}
+\begin{itemize}
+  \item \textbf{Details:} The dataset is stored in a \texttt{pandas DataFrame} and requires memory for:
+  \begin{itemize}
+    \item Raw text ($n \cdot \text{average text length}$),
+    \item Labels ($n$),
+    \item Vectorized text ($n \cdot m$).
+  \end{itemize}
+  \item \textbf{Spatial Complexity:}
+  \[
+  O(n \cdot m + n)
+  \]
+  The majority of memory is consumed by the vectorized text.
+\end{itemize}
+
+\subsubsection{Model Serialization}
+\label{section:model}
+\begin{itemize}
+  \item \textbf{Details:} The model is saved using \texttt{joblib}, which includes:
+  \begin{itemize}
+    \item The Random Forest classifier (including trees, features, and splits),
+    \item The TfidfVectorizer (vocabulary and IDF values).
+  \end{itemize}
+  \item \textbf{Spatial Complexity:}
+  \[
+  O(t \cdot d \cdot f + m)
+  \]
+  This scales with the complexity of the classifier and vectorizer.
+\end{itemize}
+
+\subsubsection{Confusion Matrix}
+\label{section:confusion}
+\begin{itemize}
+  \item \textbf{Details:} The confusion matrix is stored as a $c \times c$ grid, where $c$ is the number of classes.
+  \item \textbf{Spatial Complexity:}
+  \[
+  O(c^2)
+  \]
+  Memory requirements here are negligible compared to other components.
+\end{itemize}
+
+\subsection{Overall Spatial Complexity}
+\label{section:overall-spatial}
+Combining all components:
+\[
+O(n \cdot m + t \cdot d \cdot f + c^2)
+\]
+Where:
+\begin{itemize}
+  \item $n$: Number of documents,
+  \item $m$: Features in the vectorizer (5000 in this case),
+  \item $t$: Trees in the Random Forest (200),
+  \item $d$: Depth of each tree,
+  \item $f$: Features considered per split,
+  \item $c$: Number of classes.
+\end{itemize}
+
+\subsection{Example Impact}
+\label{section:example-spatial}
+For a dataset with:
+\begin{itemize}
+  \item $n = 10,000$ (documents),
+  \item $m = 5000$ (features),
+  \item $t = 200$ (trees),
+  \item $d = 10$ (depth),
+  \item $f = 50$ (features per split),
+  \item $c = 3$ (classes):
+\end{itemize}
+
+\begin{enumerate}
+  \item \textbf{Vectorized Data:} $10,000 \cdot 5000 = 50,000,000$ elements (approx. 190 MB in sparse format).
+  \item \textbf{Random Forest:} $200 \cdot 10 \cdot 50 = 100,000$ elements per tree, totaling $20,000,000$ elements (approx. 76 MB).
+  \item \textbf{Confusion Matrix:} $3^2 = 9$ elements (negligible).
+\end{enumerate}
+
+\textbf{Total Memory Impact:} Around 266 MB for processing and storing the model.
+
+Increasing $t$ (trees) or $d$ (depth) will significantly increase memory usage, making scalability an important factor to consider.
+
+\section{Temporal Complexity}
+
+\subsection{What It Means}
+\label{section:it-means}
+Temporal complexity refers to the runtime or the computational cost of executing the program, expressed in terms of how operations grow with input size.
+
+\subsection{Code Analysis}
+\label{section:codeAnalysis}
+
+\subsubsection{TF-IDF Vectorizer}
+\label{section:vectorizer}
+\begin{itemize}
+  \item \textbf{What happens:}
+  \begin{itemize}
+    \item The \texttt{TF-IDF Vectorizer} transforms text data into a numeric representation (a sparse matrix) by:
+    \begin{enumerate}
+      \item Tokenizing the text into individual words.
+      \item Computing term frequencies (TF) for each word in each document.
+      \item Calculating the inverse document frequency (IDF) for each word across all documents.
+      \item Combining TF and IDF values to create the final matrix.
+    \end{enumerate}
+  \end{itemize}
+  \item \textbf{Temporal Complexity:}
+  \[
+  O(n \cdot \text{avg\_len} + n \cdot m)
+  \]
+  The first term accounts for tokenization, and the second term covers matrix computations.
+\end{itemize}
+
+\subsubsection{Random Forest Classifier}
+\label{section:forest-classifier}
+\begin{itemize}
+  \item \textbf{What happens:}
+  \begin{itemize}
+    \item The Random Forest classifier trains $t$ decision trees by:
+    \begin{enumerate}
+      \item Sampling data with replacement (Bootstrap sampling) from the training set.
+      \item Iteratively splitting nodes based on $f$ features (randomly selected) until a stopping condition is met (e.g., tree depth $d$).
+      \item Predicting outcomes by aggregating the results from all trees.
+    \end{enumerate}
+  \end{itemize}
+  \item \textbf{Temporal Complexity:}
+  \[
+  O(t \cdot n \cdot d \cdot f)
+  \]
+  Prediction involves evaluating all $t$ trees for each document, with complexity:
+  \[
+  O(t \cdot n)
+  \]
+\end{itemize}
+
+\subsubsection{Cross-Validation}
+\label{section:cross-validation}
+\begin{itemize}
+  \item \textbf{What happens:}
+  \begin{itemize}
+    \item Cross-validation splits the training set into $k$ folds and trains the model $k$ times, using $k-1$ folds for training and 1 fold for testing.
+  \end{itemize}
+  \item \textbf{Temporal Complexity:}
+  \[
+  O(k \cdot t \cdot n \cdot d \cdot f)
+  \]
+\end{itemize}
+
+\subsection{Overall Temporal Complexity}
+\label{section:overall-temporal}
+Summing up:
+\[
+O(n \cdot \text{avg\_len} + n \cdot m + k \cdot t \cdot n \cdot d \cdot f)
+\]
+
+
+\section{Portability Analysis}
+\label{section:portability-analysis}
+
+\subsection{What It Means}
+Probability is a measure quantifying the likelihood that an event will occur. It is expressed as a number between 0 and 1, where 0 indicates impossibility and 1 indicates certainty. Mathematically, the probability \( P(E) \) of an event \( E \) is defined as:
+\[
+P(E) = \frac{\text{Number of favorable outcomes}}{\text{Total number of possible outcomes}}
+\]
+Probability is a fundamental concept in statistics and machine learning, often used to predict outcomes and assess model confidence.
+
+\subsection{Code Analysis}
+\label{section:code_analysis}
+
+\subsubsection{File Path Handling}
+\label{section:file-path-handaling}
+\textbf{Current Situation:} The code uses hardcoded, absolute paths such as:
+\begin{verbatim}
+data = pd.read_csv(
+    "../data/anxiety_depression_data.csv"
+)
+
+joblib.dump(
+    model, 
+    "../multiclass_classifiers/model_3_class_classifier_random_forests.joblib"
+)
+\end{verbatim}
+These paths make the code dependent on a specific directory structure, which is not portable across systems.
+
+\textbf{Solution:} Replace absolute paths with relative paths or configurable paths using the \texttt{os} module:
+\begin{verbatim}
+import os
+
+data_path = os.path.join(
+    "app", 
+    "data", 
+    "anxiety_depression_data.csv"
+)
+data = pd.read_csv(data_path)
+
+model_path = os.path.join(
+    "app", 
+    "persistency", 
+    "model_3_class_classifier_random_forests.joblib"
+)
+joblib.dump(model, model_path)
+\end{verbatim}
+
+\subsubsection{Library Dependencies}
+\label{section:library-dependencies}
+\textbf{Current Situation:} The code does not specify exact versions of dependencies, leading to inconsistencies across environments.
+
+\textbf{Solution:} Create a \texttt{requirements.txt} file to pin the library versions. Example:
+\begin{verbatim}
+pandas==1.5.3
+scikit-learn==1.2.0
+matplotlib==3.6.2
+seaborn==0.12.2
+joblib==1.2.0
+\end{verbatim}
+Use \texttt{pip install -r requirements.txt} to set up dependencies.
+
+\subsubsection{Operating System Compatibility}
+\label{section:os-comatibility}
+\textbf{Current Situation:} The code uses Windows-style paths (\texttt{C:/...}), which are incompatible with Linux/macOS.
+
+\textbf{Solution:} Use platform-agnostic paths via the \texttt{os} module:
+\begin{verbatim}
+os.path.join(
+    "directory", 
+    "file.csv"
+)
+\end{verbatim}
+
+\subsubsection{Deployment Across Languages/Platforms}
+\label{section:deployment-across}
+\textbf{Optional Improvement:} If the model needs to be deployed in non-Python environments, consider exporting it to a universal format like ONNX:
+\begin{verbatim}
+from skl2onnx import convert_sklearn
+
+onnx_model = convert_sklearn(
+    model, 
+    initial_types=[('input', FloatTensorType([None, 5000]))]
+)
+\end{verbatim}
+
+\subsubsection{Environment Configuration}
+\label{section:enviroment-configuration}
+\textbf{Current Situation:} Environment variables like file paths or runtime configurations are hardcoded.
+
+\textbf{Solution:} Use environment variables or configuration files to store such settings.
+
+\subsection{Summary}
+\label{section:summary}
+To make the code portable:
+\begin{enumerate}
+    \item Replace absolute file paths with relative ones.
+    \item Use a \texttt{requirements.txt} file for dependency management.
+    \item Avoid OS-specific code and use platform-agnostic methods for file handling.
+    \item \textit{(Optional)} Export the model to a cross-platform format for deployment in non-Python environments.
+    \item Use environment variables or configuration files for runtime settings.
+\end{enumerate}
+
+\chapter{Conclusions and possible improvements}
+\label{chapter:conclusions-improvements}
+
 \newpage
+\addcontentsline{toc}{chapter}{Bibliography} 
 \begin{thebibliography}{99}
 
 \bibitem{reddit_dataset} 
 \textit{Reddit Mental Health Dataset}.  
 Neel Ghoshal (2020).  
 \\Available at: \url{https://www.kaggle.com/datasets/neelghoshal/reddit-mental-health-data}. 
+
 \bibitem{emotion_dataset}  
 \textit{Emotion Dataset}.  
 Parul Pandey (2020).  
 \\Available at: \url{https://www.kaggle.com/datasets/parulpandey/emotion-dataset/data?select=training.csv}.  
 
 \end{thebibliography}
-
-
-
 
 
 
