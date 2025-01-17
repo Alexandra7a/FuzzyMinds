@@ -36,7 +36,6 @@ def predict_sentiment(comment):
     return "No issues detected"
 
 
-# CSS for the pop-up notification (positioned at bottom right, with "X" button)
 def inject_css():
     st.markdown(
         """
