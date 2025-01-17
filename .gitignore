@@ -1,4 +1,4 @@
 .venv/
 .idea/
-app/data/*
-app/new_data/*
+app/data/
+app/new_data/
