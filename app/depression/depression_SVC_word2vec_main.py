@@ -58,7 +58,7 @@ def main():
         'kernel': ['rbf'],
         'class_weight': ['balanced']
     }
-    grid = GridSearchCV(SVC(), param_grid, refit=True, cv=3, n_jobs=-1, verbose=2)
+    grid = GridSearchCV(SVC(class_weight='balanced'), param_grid, refit=True, cv=3, n_jobs=-1, verbose=2)
     grid.fit(X_train, y_train)
 
     # Evaluate the best model
@@ -72,6 +72,7 @@ def main():
     print("Validation Precisiion:", precision)
     print("Validation Recall:", recall)
     print("Best Parameters:", grid.best_params_)
+
 
 if __name__ == '__main__':
     main()

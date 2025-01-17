@@ -7,6 +7,7 @@ import seaborn as sns
 import joblib
 from sklearn.feature_extraction.text import TfidfVectorizer
 
+
 # Class distribution as bar chart
 def plot_class_distribution_bar(df, class_column):
     class_counts = df[class_column].value_counts()
@@ -88,15 +89,12 @@ def plot_class_similarity_heatmap(df):
     similarity_matrix = cosine_similarity(tfidf_matrix)
 
     plt.figure(figsize=(8, 6))
-    sns.heatmap(similarity_matrix, annot=True, fmt=".2f", cmap="viridis", xticklabels=class_texts.index, yticklabels=class_texts.index)
+    sns.heatmap(similarity_matrix, annot=True, fmt=".2f", cmap="viridis", xticklabels=class_texts.index,
+                yticklabels=class_texts.index)
     plt.title("Class Similarity Heatmap")
     plt.xlabel("Class")
     plt.ylabel("Class")
     plt.show()
-
-
-
-
 
 
 def plot_word_frequencies(normal_texts, top_n=20):
@@ -146,9 +144,12 @@ def plot_proposition_probabilities(normal_texts, model, class_labels):
     plt.tight_layout()
     plt.show()
 
+
 def preprocess_text(texts):
     """Apply consistent preprocessing to the input texts."""
     return texts.str.lower()
+
+
 def analyze_normal_entries():
     # Load the dataset
     data = pd.read_csv("../data/balanced_dataset_50000_with_ids.csv")
@@ -162,7 +163,6 @@ def analyze_normal_entries():
     # Load the saved model
     model = joblib.load("../persistency/multiclass_classifiers/model_3_class_classifier_random_forests.joblib")
 
-
     # Plot word frequencies for normal entries
     plot_word_frequencies(normal_data['Text'])
 
@@ -171,12 +171,12 @@ def analyze_normal_entries():
 
 
 # Call the function to analyze normal entries
-#analyze_normal_entries()
+# analyze_normal_entries()
 
 
 def main():
-    #file_path = "../data/balanced_dataset_50000_with_ids.csv"  # Replace with your file path
-    #data = pd.read_csv(file_path)
+    # file_path = "../data/balanced_dataset_50000_with_ids.csv"  # Replace with your file path
+    # data = pd.read_csv(file_path)
     data = pd.read_csv("../data/BalancedDataset.csv")
     data = data.dropna(subset=['Text'])
 
@@ -247,16 +247,20 @@ def main2():
     for sentence, result in zip(test_list, results):
         print(f"Sentence: \"{sentence}\" => Prediction: {result}")
 
+
 from sklearn.utils import shuffle
 
+
 def make_dataset():
-    save_path="../data/BalancedDatasetShuffled.csv"
-    df= pd.read_csv("../data/BalancedDataset.csv")
+    save_path = "../data/BalancedDatasetShuffled.csv"
+    df = pd.read_csv("../data/BalancedDataset.csv")
     df = shuffle(df)
     df.to_csv(save_path, index=False)
     print(f"Cleaned dataset saved to {save_path}")
+
+
 if __name__ == '__main__':
-    #make_dataset()
-    #main()
+    # make_dataset()
+    # main()
     main2()
     print("dd")

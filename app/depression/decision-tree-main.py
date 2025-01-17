@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 def make_confusion_matrix(y_true, y_pred):
     cm = confusion_matrix(y_true, y_pred)
     sns.heatmap(cm, annot=True, fmt='g', cmap='Blues',
@@ -14,6 +15,7 @@ def make_confusion_matrix(y_true, y_pred):
     plt.xlabel('Prediction', fontsize=13)
     plt.title('Confusion Matrix', fontsize=17, pad=20)
     plt.show()
+
 
 def main():
     data = pd.read_csv("../new_data/depression_data.csv")
@@ -38,12 +40,15 @@ def main():
 
     report = classification_report(y_test, y_pred, target_names=['No Depression', 'Depression'], output_dict=True)
     print("\nPrecision and Recall for Each Class:")
-    print(f"No Depression: Precision = {report['No Depression']['precision']:.2f}, Recall = {report['No Depression']['recall']:.2f}")
-    print(f"Depression: Precision = {report['Depression']['precision']:.2f}, Recall = {report['Depression']['recall']:.2f}")
+    print(
+        f"No Depression: Precision = {report['No Depression']['precision']:.2f}, Recall = {report['No Depression']['recall']:.2f}")
+    print(
+        f"Depression: Precision = {report['Depression']['precision']:.2f}, Recall = {report['Depression']['recall']:.2f}")
 
     print(f"\nAverage Precision: {report['weighted avg']['precision']:.2f}")
 
     make_confusion_matrix(y_test, y_pred)
+
 
 if __name__ == '__main__':
     main()

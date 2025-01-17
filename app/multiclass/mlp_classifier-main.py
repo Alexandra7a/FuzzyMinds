@@ -1,5 +1,4 @@
 import time
-
 import numpy as np
 import pandas as pd
 import seaborn as sns
@@ -26,7 +25,6 @@ def make_confusion_matrix(y_true, y_pred, labels):
 
 
 def model(X_train, X_test, y_train, y_test):
-
     early_stopping = callbacks.EarlyStopping(
         min_delta=0.001,  # minimium amount of change to count as an improvement
         patience=20,  # how many epochs to wait before stopping
@@ -54,8 +52,7 @@ def model(X_train, X_test, y_train, y_test):
         verbose=0,  # turn off training log
     )
 
-
-    #plotting
+    # plotting
     print("GRAFIC 1")
 
     history_df = pd.DataFrame(history.history)
@@ -81,7 +78,6 @@ def model(X_train, X_test, y_train, y_test):
     plt.legend(['train', 'test'], loc='upper left')
     plt.show()
 
-
     y_pred_prob = model.predict(X_test)  # Probabilities
     y_pred = np.argmax(y_pred_prob, axis=1)  # Predicted classes
 
@@ -102,18 +98,16 @@ def plot_class_distribution_pie(df, class_column):
     plt.show()
 
 
-
-
 def make_model():
     data = pd.read_csv("../data/balanced_dataset_50000_with_ids.csv")
-    #data = data[:20000]
+    # data = data[:20000]
     data['Target'] = data['Target'].apply(lambda x:
                                           0 if x == "normal" else
                                           1 if x == "anxiety" else
                                           2)
 
-    #data.dropna(inplace=True)
-    #data.drop_duplicates(subset=["Text","Target"],keep='first', inplace=True)
+    # data.dropna(inplace=True)
+    # data.drop_duplicates(subset=["Text","Target"],keep='first', inplace=True)
     # data = data.sample(frac=1, random_state=42).reset_index(drop=True)  # Shuffle entire dataset
 
     print(data.head(20))
@@ -122,8 +116,6 @@ def make_model():
 
     X = data['Text']
     y = data['Target']
-
-
 
     # Encode the text using a transformer
     transformer_model = SentenceTransformer('all-MiniLM-L6-v2')
@@ -148,5 +140,5 @@ def main():
 
 
 if __name__ == '__main__':
-    #print(tf.__version__)
+    # print(tf.__version__)
     main()

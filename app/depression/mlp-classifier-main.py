@@ -53,7 +53,7 @@ def make_model():
     joblib.dump(classifier, '../persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
 
     # Save the SentenceTransformer model (optional, as it is pretrained and can be reloaded)
-    #model.save('../persistency/transformers/sentence_transformer_model')
+    # model.save('../persistency/transformers/sentence_transformer_model')
 
 
 def testing(classifier_t, transformer_model):

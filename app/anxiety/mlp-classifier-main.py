@@ -7,6 +7,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 import joblib
 
+
 def make_confusion_matrix(y_true, y_pred):
     cm = confusion_matrix(y_true, y_pred)
     sns.heatmap(cm, annot=True, fmt='g', cmap='Blues',
@@ -49,7 +50,8 @@ def make_model():
 
     joblib.dump(classifier, '../persistency/classifiers/all-MiniLM-L6-v2_anxiety_classifier.joblib')
 
-def testing(classifier_t,transformer_model):
+
+def testing(classifier_t, transformer_model):
     test_list = [
         "I feel sleepy all the time.",
         "Can you give me the source of the comment?",
@@ -77,11 +79,12 @@ def testing(classifier_t,transformer_model):
     for sentence, result in zip(test_list, results):
         print(f"Sentence: \"{sentence}\" => Prediction: {result}")
 
-def main():#make_model()
-    model=SentenceTransformer('all-MiniLM-L6-v2')
-    classifier=joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_anxiety_classifier.joblib')
+
+def main():  #make_model()
+    model = SentenceTransformer('all-MiniLM-L12-v2')
+    classifier = joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_anxiety_classifier.joblib')
     testing(classifier, model)
-    
+
 
 if __name__ == '__main__':
     main()

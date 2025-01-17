@@ -3,8 +3,8 @@ import joblib
 from sentence_transformers import SentenceTransformer
 
 # Load pre-trained models (placeholders for demo)
-depression_model = joblib.load('./persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
-anxiety_model = joblib.load('./persistency/classifiers/all-MiniLM-L6-v2_anxiety_classifier.joblib')
+depression_model = joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_depression_classifier.joblib')
+anxiety_model = joblib.load('../persistency/classifiers/all-MiniLM-L6-v2_anxiety_classifier.joblib')
 
 # Initialize session state variables
 if "posts" not in st.session_state:
@@ -19,6 +19,7 @@ if "notification" not in st.session_state:
 
 if "comment_inputs" not in st.session_state:
     st.session_state.comment_inputs = {post['id']: "" for post in st.session_state.posts}
+
 
 # Function to predict sentiment
 def predict_sentiment(comment):
@@ -35,7 +36,7 @@ def predict_sentiment(comment):
     return "No issues detected"
 
 
-# CSS for the pop-up notification (positioned at bottom right)
+# CSS for the pop-up notification (positioned at bottom right, with "X" button)
 def inject_css():
     st.markdown(
         """
@@ -64,6 +65,19 @@ def inject_css():
         .popup button:hover {
             background-color: #0056b3;
         }
+        .popup .close-btn {
+            position: absolute;
+            top: 5px;
+            right: 10px;
+            background-color: transparent;
+            border: none;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .popup .close-btn:hover {
+            color: red;
+        }
         </style>
         """,
         unsafe_allow_html=True,
@@ -78,6 +92,7 @@ if st.session_state.notification:
     st.markdown(
         f"""
         <div class="popup">
+            <button class="close-btn" onclick="window.location.reload();">×</button>
             <strong>⚠ {st.session_state.notification}</strong>
             <br>
             <button onclick="window.alert('Quiz functionality is under development!')">Take Quiz</button>
@@ -85,6 +100,10 @@ if st.session_state.notification:
         """,
         unsafe_allow_html=True,
     )
+
+    # When X button is clicked, update session state to hide notification
+    if st.button('Close Notification'):
+        st.session_state.notification = None
 
 # Main app interface
 st.title("Social Media Post Simulator")
@@ -102,7 +121,7 @@ for post in st.session_state.posts:
             st.write(f"- {comment}")
 
     # Add a comment
-    with st.form(f"comment_form_{post_id}"):
+    with st.form(f"comment_form_{post_id}") as form:
         comment_input = st.text_input(
             f"Add a comment to Post {post_id}:",
             value=st.session_state.comment_inputs[post_id]
