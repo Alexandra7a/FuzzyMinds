@@ -9,13 +9,16 @@ import re
 from nltk.corpus import stopwords
 import nltk
 import os
+
 os.environ["HF_HUB_DISABLE_SYMLINKS_WARNING"] = "1"
+
 
 def preprocess_text(text):
     text = re.sub(r'\W+', ' ', text)
     stop_words = set(stopwords.words('english'))
     tokens = text.lower().split()
-    return [word for word in tokens if word not in stop_words] #Returns a list of words that will be fed into the Word2Vec model.
+    return [word for word in tokens if
+            word not in stop_words]  #Returns a list of words that will be fed into the Word2Vec model.
 
 
 def average_word_vectors(words, model, vocabulary, num_features):
@@ -29,10 +32,11 @@ def average_word_vectors(words, model, vocabulary, num_features):
         feature_vec = np.divide(feature_vec, n_words)
     return feature_vec
 
+
 def main():
     # Load data
     data = pd.read_csv("../new_data/depression_data.csv")
-    data=data.iloc[:500] # small data
+    data = data.iloc[:500]  # small data
 
     data['Processed_Text'] = data['Text'].apply(preprocess_text)
 
@@ -72,6 +76,7 @@ def main():
     print("Validation Precisiion:", precision)
     print("Validation Recall:", recall)
     print("Best Parameters:", grid.best_params_)
+
 
 if __name__ == '__main__':
     main()

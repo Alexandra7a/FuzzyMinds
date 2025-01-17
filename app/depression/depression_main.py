@@ -61,7 +61,7 @@ def main():
 
         depressionData.at[index, 'depression_severity'] = get_depression_severity(phq_score)
 
-    output_depression_path = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/depression_data.csv'
+    output_depression_path = '../data/depression_data.csv'
     depressionData.to_csv(output_depression_path, index=False)
     # combined_depression_data.to_csv(output_depression_path, index=False)
 

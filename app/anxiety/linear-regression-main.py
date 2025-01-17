@@ -6,6 +6,7 @@ import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 
+
 def make_confusion_matrix(y_true, y_pred):
     cm = confusion_matrix(y_true, y_pred)
     sns.heatmap(cm, annot=True, fmt='g', cmap='Blues',
@@ -15,8 +16,9 @@ def make_confusion_matrix(y_true, y_pred):
     plt.title('Confusion Matrix', fontsize=17, pad=20)
     plt.show()
 
+
 def main():
-    data = pd.read_csv("C:/Users/aivla/Desktop/Andra/GitHub/projects-fuzzyminds/app/new_data/anxiety_data.csv")
+    data = pd.read_csv("../new_data/anxiety_data.csv")
     data['Target'] = data['Target'].apply(lambda x: 1 if x == "anxiety" else 0)
 
     y = data['Target']
@@ -40,12 +42,14 @@ def main():
 
     report = classification_report(y_test, y_pred, target_names=['No Anxiety', 'Anxiety'], output_dict=True)
     print("\nPrecision and Recall for Each Class:")
-    print(f"No Anxiety: Precision = {report['No Anxiety']['precision']:.2f}, Recall = {report['No Anxiety']['recall']:.2f}")
+    print(
+        f"No Anxiety: Precision = {report['No Anxiety']['precision']:.2f}, Recall = {report['No Anxiety']['recall']:.2f}")
     print(f"Anxiety: Precision = {report['Anxiety']['precision']:.2f}, Recall = {report['Anxiety']['recall']:.2f}")
 
     print(f"\nAverage Precision: {report['weighted avg']['precision']:.2f}")
 
     make_confusion_matrix(y_test, y_pred)
+
 
 if __name__ == '__main__':
     main()

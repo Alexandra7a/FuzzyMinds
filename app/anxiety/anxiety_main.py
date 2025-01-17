@@ -14,7 +14,7 @@ def get_anxiety_severity(gad_score):
 
 
 def main():
-    anxiety_file_path = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/anxiety_data.csv'
+    anxiety_file_path = '../data/anxiety_data.csv'
 
     anxietyData = pd.read_csv(anxiety_file_path)
 
@@ -55,7 +55,7 @@ def main():
 
         anxietyData.at[index, 'anxiety_severity'] = get_anxiety_severity(gad_score)
 
-    output_anxiety_path = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/anxiety_data.csv'
+    output_anxiety_path = '../data/anxiety_data.csv'
     anxietyData.to_csv(output_anxiety_path, index=False)
     # combined_anxiety_data.to_csv(output_anxiety_path, index=False)
 

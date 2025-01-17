@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Load the anxiety dataset
-anxiety_data_file = 'C:/Users/aivla/Desktop/Andra/College/Anul III/Semestrul I/Metode inteligente de rezolvare a problemelor reale/Laboratoare/FirstDemo/data/anxiety_data.csv'
+anxiety_data_file = '../data/anxiety_data.csv'
 anxiety_data = pd.read_csv(anxiety_data_file)
 
 # Data Overview

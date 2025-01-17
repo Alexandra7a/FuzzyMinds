@@ -37,9 +37,11 @@ def plot_training_history(history):
     plt.grid(True)
     plt.show()
 
+
 def preprocess_text(texts):
     """Apply consistent preprocessing to the input texts."""
     return texts.str.lower()
+
 
 def make_confusion_matrix(y_test, y_pred, class_labels):
     cm = confusion_matrix(y_test, y_pred)
@@ -49,10 +51,11 @@ def make_confusion_matrix(y_test, y_pred, class_labels):
     plt.title('Confusion Matrix', fontsize=17, pad=20)
     plt.show()
 
+
 def make_model():
     # Load dataset
-    #data = pd.read_csv("../data/test_dataset_multi.csv")
-    data=pd.read_csv("C:/Users/Alexandra/Documents/GitHub/projects-fuzzyminds/BalancedDatasetShuffled (6).csv")
+    # data = pd.read_csv("../data/test_dataset_multi.csv")
+    data = pd.read_csv("../data/BalancedDatasetShuffled (6).csv")
     data = data.dropna(subset=['Text'])
 
     # Encode labels using LabelEncoder for robustness
@@ -60,9 +63,8 @@ def make_model():
     data['Target'] = label_encoder.fit_transform(data['Target'])
     class_labels = label_encoder.classes_
 
-
-
-    joblib.dump(label_encoder, "../persistency/multiclass_classifiers/tests_on_diff_datasets/label_encoder_random_forests.joblib")
+    joblib.dump(label_encoder,
+                "../persistency/multiclass_classifiers/tests_on_diff_datasets/label_encoder_random_forests.joblib")
     print(label_encoder)
     print(label_encoder.classes_)
     pass
@@ -85,7 +87,6 @@ def make_model():
     # Train the model
     model.fit(X_train, y_train)
 
-
     # Make predictions
     y_pred = model.predict(X_test)
 
@@ -94,7 +95,8 @@ def make_model():
     print(classification_report(y_test, y_pred, target_names=class_labels))
     print("Accuracy:", accuracy_score(y_test, y_pred))
 
-    joblib.dump(model, "../persistency/multiclass_classifiers/tests_on_diff_datasets/model_3_class_classifier_random_forests_best_new_dataset_trained3.joblib")
+    joblib.dump(model,
+                "../persistency/multiclass_classifiers/tests_on_diff_datasets/model_3_class_classifier_random_forests_best_new_dataset_trained3.joblib")
 
     # Example usage
     example_sentences = [
@@ -106,13 +108,13 @@ def make_model():
     # Preprocess and predict
     example_sentences = preprocess_text(pd.Series(example_sentences))
 
-
     predictions = model.predict(example_sentences)
     for sentence, label in zip(example_sentences, predictions):
         label_name = class_labels[label]
         print(f"'{sentence}' is classified as: {label_name}")
 
     make_confusion_matrix(y_test, y_pred, class_labels)
+
 
 def main():
     start_time = time.time()
@@ -121,6 +123,7 @@ def main():
 
     elapsed_time = end_time - start_time
     print(f"Program completed in {elapsed_time:.2f} seconds.")
+
 
 if __name__ == "__main__":
     main()

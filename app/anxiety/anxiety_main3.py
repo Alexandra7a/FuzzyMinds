@@ -16,6 +16,7 @@ def preprocess_text(text):
     tokens = text.lower().split()
     return [word for word in tokens if word not in stop_words]
 
+
 def get_bert_embeddings(texts, tokenizer, model):
     # Tokenize and get BERT embeddings
     inputs = tokenizer(texts, padding=True, truncation=True, return_tensors='pt', max_length=512)
@@ -23,9 +24,10 @@ def get_bert_embeddings(texts, tokenizer, model):
         outputs = model(**inputs)
     return outputs.last_hidden_state.mean(dim=1).numpy()  # Mean pooling for sentence embeddings
 
+
 def main():
     # Load data
-    data = pd.read_csv("C:/Users/Alexandra/Documents/GitHub/projects-fuzzyminds/app/new_data/anxiety_data.csv")
+    data = pd.read_csv("../new_data/anxiety_data.csv")
     data['Processed_Text'] = data['Text'].apply(preprocess_text)
 
     # Initialize BERT tokenizer and model from Hugging Face
@@ -64,6 +66,7 @@ def main():
 
     print("Validation Accuracy:", accuracy)
     print("Best Parameters:", grid.best_params_)
+
 
 if __name__ == '__main__':
     main()

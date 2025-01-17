@@ -48,7 +48,7 @@ def make_confusion_matrix(y_true, y_pred):
 def main():
     # Load data
 
-    data = pd.read_csv("C:/Users/aivla/Desktop/Andra/GitHub/projects-fuzzyminds/app/new_data/anxiety_data.csv")
+    data = pd.read_csv("../new_data/anxiety_data.csv")
     data = data.iloc[:500]  # Small data subset
 
     data['Processed_Text'] = data['Text'].apply(preprocess_text)
