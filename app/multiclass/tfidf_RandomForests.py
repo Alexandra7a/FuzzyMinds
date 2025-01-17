@@ -53,7 +53,6 @@ def make_confusion_matrix(y_test, y_pred, class_labels):
 
 
 def make_model():
-    # Load dataset
     # data = pd.read_csv("../data/test_dataset_multi.csv")
     data = pd.read_csv("../data/BalancedDatasetShuffled (6).csv")
     data = data.dropna(subset=['Text'])
